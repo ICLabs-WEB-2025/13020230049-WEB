@@ -1,4 +1,3 @@
-<div class="col-lg-5 mb-4">
     <div class="card">
         <div class="card-header bg-white">
             <h5 class="card-title mb-0">Tambah Transaksi Baru</h5>
@@ -60,4 +59,3 @@
             </form>
         </div>
     </div>
-</div>

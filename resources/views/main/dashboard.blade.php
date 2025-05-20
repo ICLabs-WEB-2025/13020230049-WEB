@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.sidebard')
+    @include('components.sidebard')
 
     <div class="main-content">
         <div class="container-fluid">
@@ -14,7 +14,10 @@
                         </div>
                         <div class="form-check form-switch ms-auto">
                             <input class="form-check-input dark" type="checkbox" role="switch" id="darkModeToggle">
-                            <label class="form-check-label dark" for="darkModeToggle"><i class="bi bi-moon-stars-fill"></i> <i class="bi bi-sun-fill"></i></label>
+                            <label class="form-check-label dark" for="darkModeToggle">
+                                <i id="moon-icon" class="bi bi-moon-stars-fill" style="display: none;"></i>
+                                <i id="sun-icon" class="bi bi-sun-fill"></i>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -65,8 +68,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Distribusi Pengeluaran Bulan Ini</h5>
+                        <div class="card-header bg-white ">
+                            <h5 class="card-title mb-0 text-dark">Distribusi Pengeluaran Bulan Ini</h5>
                         </div>
                         <div class="card-body">
                             <div class="chart-container" style="position: relative; height:300px; width:100%">
@@ -139,4 +142,5 @@
         };
     </script>
     <script src="{{ asset('js/main/dashboard.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

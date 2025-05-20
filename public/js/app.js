@@ -1,24 +1,20 @@
-// const darkModeToggle = document.getElementById('darkModeToggle');
+// Pastikan elemen dengan ID 'darkModeToggle' ada
+const darkModeToggle = document.getElementById('darkModeToggle');
+darkModeToggle.addEventListener('change', function () {
+    const isDark = this.checked;
+    const moonIcon = document.getElementById('moon-icon');
+    const sunIcon = document.getElementById('sun-icon');
 
-// let kondisional = 0;
-
-// darkModeToggle.addEventListener('click',function(e){
-//     kondisional +=1;
-//     if(kondisional %2 == 0){
-//         // console.log("light mode");
-//         document.body.classList.remove("bg-dark")
-//         document.body.classList.remove("text-light")
-
-        
-//     }
-//     else{
-//         console.log("dark mode")
-//         document.body.classList.add("bg-dark");
-//         document.body.classList.add("text-light");
-//     }
-//     // console.log(kondisional);
-// })
-
-// const table = document.getElementById('transactionsTable');
-
-// console.log(table);
+    if (isDark) {
+        console.log('dark mode');
+        document.body.classList.add('bg-dark', 'text-light');
+        moonIcon.style.display = 'inline';
+        sunIcon.style.display = 'none';
+        // menentukan tema
+    } else {
+        console.log('light mode');
+        document.body.classList.remove('bg-dark', 'text-light');
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'inline';
+    }
+});

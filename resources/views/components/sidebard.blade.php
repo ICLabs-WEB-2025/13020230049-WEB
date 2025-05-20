@@ -7,7 +7,7 @@
 
         <li>
             <a href="{{ url('/dashboard') }}" class="d-flex align-items-center p-3 text-light">
-                <i class="bi bi-speedometer2 me-3"></i>
+                <i class="bi bi-house-door-fill me-3"></i>
                 <span>Dashboard</span>
             </a>
         </li>

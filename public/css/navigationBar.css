@@ -1,0 +1,52 @@
+body {
+            margin-bottom: 70px; /* Memberi ruang di bawah agar konten tidak tertutup nav bar */
+            font-family: sans-serif; /* Contoh font */
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff; /* Warna latar belakang nav bar */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Bayangan di atas nav bar */
+            display: flex;
+            justify-content: space-around; /* Menyebarkan item secara merata */
+            align-items: center;
+            padding: 5px 0; /* Padding atas dan bawah */
+            z-index: 1000; /* Pastikan nav bar di atas konten lain */
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column; /* Ikon di atas, teks di bawah */
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #6c757d; /* Warna teks dan ikon default */
+            padding: 5px 10px;
+            font-size: 0.75rem; /* Ukuran font teks */
+            flex-grow: 1; /* Agar setiap item mengambil ruang yang sama */
+            text-align: center;
+        }
+
+        .nav-item i {
+            font-size: 1.5rem; /* Ukuran ikon */
+            margin-bottom: 2px; /* Jarak antara ikon dan teks */
+        }
+
+        .nav-item.active,
+        .nav-item:hover {
+            color: #007bff; /* Warna teks dan ikon saat aktif atau di-hover (sesuaikan dengan warna tema) */
+        }
+
+        /* Responsif: Sembunyikan di layar besar (misalnya, desktop) */
+        /* Kita anggap layar besar dimulai dari 768px (breakpoint md Bootstrap) */
+        @media (min-width: 768px) {
+            .bottom-nav {
+                display: none; /* Sembunyikan nav bar */
+            }
+            body {
+                margin-bottom: 0; /* Hapus margin bawah jika nav bar tersembunyi */
+            }
+        }
