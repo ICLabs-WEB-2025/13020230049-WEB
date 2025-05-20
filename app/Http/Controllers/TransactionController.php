@@ -14,14 +14,16 @@ class TransactionController extends Controller
                                     ->with('category') // Mengambil relasi kategori
                                     ->latest()
                                     ->get();
-
+        $categories = ExpenseCategory::all();
         // Mengembalikan data transaksi ke view
-        return view('transaction.index', compact('transactions'));
+        // return view('transaction.index', compact('transactions'));
+        return view('transaction.index', compact('transactions', 'categories'));
     }
 
     public function store(Request $request)
     {
         // Validasi input
+        // dd($request->all());
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'category_id' => 'required|exists:expense_categories,id',
@@ -29,6 +31,7 @@ class TransactionController extends Controller
             'date' => 'required|date',
             'description' => 'nullable|string',
         ]);
+        // dd('Validasi lolos', $request->all());
 
         // Menyimpan transaksi baru
         $transaction = new Transaction([
@@ -47,30 +50,29 @@ class TransactionController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Menemukan transaksi berdasarkan ID
         $transaction = Transaction::findOrFail($id);
 
         // Validasi input
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'category_id' => 'required|exists:expense_categories,id',
-            'transaction_type' => 'required|in:income,expense',
-            'date' => 'required|date',  // Validasi format tanggal yang benar
+            'transaction_type' => 'required|in:income,expense',  // pastikan ini ada
+            'date' => 'required|date',
             'description' => 'nullable|string',
         ]);
 
-        // Memperbarui transaksi dengan data yang diterima
+        // Memperbarui transaksi
         $transaction->update([
             'category_id' => $request->category_id,
             'amount' => $request->amount,
-            'transaction_type' => $request->transaction_type,
+            'transaction_type' => $request->transaction_type,  // pastikan ini diterima
             'description' => $request->description,
-            'date' => $request->date,  // Pastikan data `date` diterima dan disimpan
+            'date' => $request->date,
         ]);
 
-        // Mengembalikan respons sukses
-        return response()->json(['success' => 'Transaksi berhasil diperbarui!']);
+        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diperbarui!');
     }
+
 
 
 

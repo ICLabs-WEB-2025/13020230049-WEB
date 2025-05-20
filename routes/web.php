@@ -23,14 +23,11 @@ Route::middleware('auth')->post('/transactions', [TransactionController::class, 
 Route::middleware('auth')->delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 
 Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');
+// routes/web.php
 Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
 
 
 // api kategori
-// Jika menggunakan route API
-Route::get('/categories', function () {
-    return response()->json(App\Models\ExpenseCategory::all());
-});
 
 
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('expense_categories')->onDelete('cascade'); // Relasi dengan kategori pengeluaran
             $table->decimal('amount', 10, 2);
             $table->enum('transaction_type', ['income', 'expense']);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->date('date'); // Menambahkan kolom date
             $table->timestamps();
         });
