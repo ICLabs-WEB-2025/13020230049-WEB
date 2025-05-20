@@ -26,6 +26,14 @@ Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->n
 Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
 
 
+// api kategori
+// Jika menggunakan route API
+Route::get('/categories', function () {
+    return response()->json(App\Models\ExpenseCategory::all());
+});
+
+
+
 // Dashboard
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -12,7 +12,7 @@
             </a>
         </li>
 
-        <li>
+        <li>    
             <a href="{{ url('/transactions') }}" class="d-flex align-items-center p-3 text-light">
                 <i class="bi bi-cash-coin me-3"></i>
                 <span>Transaksi</span>

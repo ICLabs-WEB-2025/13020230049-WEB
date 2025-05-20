@@ -45,63 +45,43 @@ class TransactionController extends Controller
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil disimpan!');
     }
 
-    public function edit($id)
-    {
-        // Mengambil transaksi berdasarkan ID
-        $transaction = Transaction::findOrFail($id);
-
-        // Pastikan transaksi milik pengguna yang sedang login
-        if ($transaction->user_id !== auth()->id()) {
-            return redirect()->route('transactions.index')->with('error', 'Akses ditolak.');
-        }
-
-        // Mengambil semua kategori untuk kategori pilihan
-        $categories = ExpenseCategory::all();
-
-        // Mengembalikan data transaksi dan kategori ke view edit
-        return view('transaction.edit', compact('transaction', 'categories'));
-    }
-
     public function update(Request $request, $id)
     {
+        // Menemukan transaksi berdasarkan ID
+        $transaction = Transaction::findOrFail($id);
+
         // Validasi input
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'category_id' => 'required|exists:expense_categories,id',
             'transaction_type' => 'required|in:income,expense',
-            'date' => 'required|date',
+            'date' => 'required|date',  // Validasi format tanggal yang benar
             'description' => 'nullable|string',
         ]);
 
-        // Mengambil transaksi berdasarkan ID
-        $transaction = Transaction::findOrFail($id);
-
-        // Pastikan transaksi milik pengguna yang sedang login
-        if ($transaction->user_id !== auth()->id()) {
-            return redirect()->route('transactions.index')->with('error', 'Akses ditolak.');
-        }
-
-        // Memperbarui transaksi
+        // Memperbarui transaksi dengan data yang diterima
         $transaction->update([
             'category_id' => $request->category_id,
             'amount' => $request->amount,
             'transaction_type' => $request->transaction_type,
             'description' => $request->description,
-            'date' => $request->date,
+            'date' => $request->date,  // Pastikan data `date` diterima dan disimpan
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diperbarui!');
+        // Mengembalikan respons sukses
+        return response()->json(['success' => 'Transaksi berhasil diperbarui!']);
     }
+
+
+
 
 
     public function destroy($id)
     {
-        // Mengambil transaksi berdasarkan ID
         $transaction = Transaction::findOrFail($id);
 
-        // Pastikan transaksi milik pengguna yang sedang login
         if ($transaction->user_id !== auth()->id()) {
-            return redirect()->route('transaction.index')->with('error', 'Akses ditolak.');
+            return redirect()->route('transactions.index')->with('error', 'Akses ditolak.');
         }
 
         $transaction->delete();

@@ -50,14 +50,6 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary w-100">Perbarui Transaksi</button>
-                                <div class="mb-3">
-                                    <label for="amount" class="form-label">Jumlah (Rp)</label>
-                                    <input type="number" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $transaction->amount) }}" required min="1">
-                                    @error('amount')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
                             </form>
                         </div>
                     </div>
