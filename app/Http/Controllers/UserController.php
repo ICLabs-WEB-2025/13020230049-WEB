@@ -53,5 +53,23 @@ class UserController extends Controller
         return redirect()->route('login');
         // return response()->json(['error' => 'Unauthorized'], 401); 
     }
+    public function logout(Request $request)
+    {
+        // 1. Logout pengguna dari guard default (biasanya 'web')
+        Auth::logout();
+
+        // 2. Invalidate sesi pengguna saat ini
+        // Ini akan menghapus semua data sesi dan membuatnya tidak valid lagi.
+        $request->session()->invalidate();
+
+        // 3. Regenerate token CSRF sesi
+        // Ini adalah praktik keamanan yang baik.
+        $request->session()->regenerateToken();
+
+        // 4. Redirect ke halaman yang diinginkan setelah logout
+        // Biasanya halaman utama atau halaman login.
+        return redirect('/')->with('status', 'Anda telah berhasil logout.');
+        // Atau bisa juga ke halaman utama: return redirect('/');
+    }
 
 }

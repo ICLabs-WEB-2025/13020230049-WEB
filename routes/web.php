@@ -13,44 +13,33 @@ Route::get('/get-token', function () {
 
 Route::get('/', [UserController::class, 'loginForm'])->name('login');
 Route::get('/register', [UserController::class, 'registerForm'])->name('register');
-
-
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 
-
-//transaksis
-Route::middleware('auth')->get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
-Route::middleware('auth')->post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
-Route::middleware('auth')->delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
-
-Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');
-// routes/web.php
-Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
-
-
-// saving goals
-Route::middleware('auth')->get('/savings-goals', [SavingsGoalController::class, 'index'])->name('savings-goals.index');
-// Route::get('/savings-goals/create', [SavingsGoalController::class, 'create'])->name('savings-goals.create');
-Route::post('/savings-goals', [SavingsGoalController::class, 'store'])->name('savings-goals.store');
-Route::get('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'show'])->name('savings-goals.show'); // {savings_goal} adalah parameter model binding
-Route::get('/savings-goals/{savings_goal}/edit', [SavingsGoalController::class, 'edit'])->name('savings-goals.edit');
-Route::put('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'update'])->name('savings-goals.update'); // Untuk update
-// Route::patch('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'update']); // Alternatif untuk update
-Route::delete('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'destroy'])->name('savings-goals.destroy');
+// autentikasi
 Route::middleware(['auth'])->group(function () {
+    // dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    //transaksis
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
+    Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+    Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');
+    Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
     Route::resource('savings-goals', SavingsGoalController::class);
+    
     // TAMBAHKAN ROUTE INI UNTUK FITUR TAMBAH DANA:
+    Route::get('/savings-goals', [SavingsGoalController::class, 'index'])->name('savings-goals.index');
     Route::post('/savings-goals/{savings_goal}/add-funds', [SavingsGoalController::class, 'addFunds'])->name('savings-goals.add-funds');
-
-
+    Route::post('/savings-goals', [SavingsGoalController::class, 'store'])->name('savings-goals.store');
+    Route::get('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'show'])->name('savings-goals.show'); 
+    Route::get('/savings-goals/{savings_goal}/edit', [SavingsGoalController::class, 'edit'])->name('savings-goals.edit');
+    Route::put('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'update'])->name('savings-goals.update');
+    Route::delete('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'destroy'])->name('savings-goals.destroy');
+    
     // show profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    //delete account
     Route::delete('/profile', [ProfileController::class, 'destroyAccount'])->name('profile.destroyAccount');
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
-
-
-// Dashboard
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

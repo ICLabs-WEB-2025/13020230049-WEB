@@ -34,10 +34,14 @@
         </li>
 
         <li>
-            <a href="{{ url('/') }}" class="d-flex align-items-center p-3 text-light">
+            <a href="{{ url('/') }}" class="d-flex align-items-center p-3 text-light"
+                onclick="event.preventDefault(); document.getElementById('logout-form-sidebar').submit();">
                 <i class="bi bi-box-arrow-right me-3"></i>
                 <span>Logout</span>
             </a>
+            <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </li>
     </ul>
 

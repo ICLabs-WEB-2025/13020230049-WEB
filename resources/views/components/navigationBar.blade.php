@@ -19,8 +19,12 @@
         <span>Profile</span>
     </a>
 
-    <a href="{{ url('/') }}" class="nav-item {{ request()->routeIs('/savings-goals') ? 'active' : '' }}">
+    <a href="#" class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form-sidebar').submit();">
         <i class="bi bi-box-arrow-right"></i>
         <span>Keluar</span>
     </a>
+
+    <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
 </nav>
