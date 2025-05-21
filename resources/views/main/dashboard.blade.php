@@ -2,7 +2,6 @@
 
 @section('content')
     @include('components.sidebard')
-
     <div class="main-content">
         <div class="container-fluid">
             <div class="row mb-4">
@@ -82,49 +81,8 @@
 
             <div class="row d-none d-md-block">
                 <div class="col-12">
-                    <div class="card ">
-                        <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">Transaksi Terbaru</h5>
-                            <a href="{{ route('transactions.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
-                        </div>
-                        <div class="transaction-table">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Tanggal</th>
-                                            <th scope="col">Kategori</th>
-                                            <th scope="col">Deskripsi</th>
-                                            <th scope="col">Tipe</th>
-                                            <th scope="col">Jumlah</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="recentTransactionsTable">
-                                        @forelse($transactions as $transaction)
-                                            <tr>
-                                                <td>{{ \Carbon\Carbon::parse($transaction->date)->format('d-m-Y') }}</td>
-                                                <td>{{ $transaction->category->category_name ?? 'Tidak ada kategori' }}</td>
-                                                <td>{{ $transaction->description ?? '-' }}</td>
-                                                <td>
-                                                    <span class="transaction-badge {{ $transaction->transaction_type === 'income' ? 'badge-income' : 'badge-expense' }}">
-                                                        {{ ucfirst($transaction->transaction_type) }}
-                                                    </span>
-                                                </td>
-                                                <td class="{{ $transaction->transaction_type === 'income' ? 'income-text' : 'expense-text' }}">
-                                                    {{ $transaction->transaction_type === 'income' ? '+' : '-' }}
-                                                    Rp {{ number_format($transaction->amount, 2, ',', '.') }}
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="5" class="text-center">Belum ada transaksi</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    @include('components.tableTransaction')
+                    <a href="{{ route('transactions.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
                 </div>
             </div>
         </div>
