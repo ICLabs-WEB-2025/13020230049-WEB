@@ -19,6 +19,13 @@
             </a>
         </li>
 
+        <li>    
+            <a href="{{ url('/savings-goals') }}" class="d-flex align-items-center p-3 text-light">
+                <i class="bi bi-wallet-fill me-3"></i>
+                <span>Tabungan</span>
+            </a>
+        </li>
+
         <li>
             <a href="{{ url('/') }}" class="d-flex align-items-center p-3 text-light">
                 <i class="bi bi-box-arrow-right me-3"></i>

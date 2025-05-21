@@ -13,7 +13,6 @@
 <body>
     <div class="">
         @yield('content')
-        @include('components.navigationBar')
     </div>
 
     <!-- Bootstrap 5 JS -->

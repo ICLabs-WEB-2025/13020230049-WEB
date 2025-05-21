@@ -1,7 +1,7 @@
 body {
-            margin-bottom: 70px; /* Memberi ruang di bawah agar konten tidak tertutup nav bar */
-            font-family: sans-serif; /* Contoh font */
-        }
+        margin-bottom: 70px; /* Memberi ruang di bawah agar konten tidak tertutup nav bar */
+        font-family: sans-serif; /* Contoh font */
+    }
 
         .bottom-nav {
             position: fixed;

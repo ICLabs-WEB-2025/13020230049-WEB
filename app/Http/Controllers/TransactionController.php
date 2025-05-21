@@ -52,7 +52,6 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
 
-        // Validasi input
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'category_id' => 'required|exists:expense_categories,id',
@@ -61,11 +60,10 @@ class TransactionController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        // Memperbarui transaksi
         $transaction->update([
             'category_id' => $request->category_id,
             'amount' => $request->amount,
-            'transaction_type' => $request->transaction_type,  // pastikan ini diterima
+            'transaction_type' => $request->transaction_type,  
             'description' => $request->description,
             'date' => $request->date,
         ]);

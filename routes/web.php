@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\SavingsGoalController;
 
 Route::get('/get-token', function () {
     return csrf_token();
@@ -27,9 +28,15 @@ Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->n
 Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
 
 
-// api kategori
-
-
+// saving goals
+Route::get('/savings-goals', [SavingsGoalController::class, 'index'])->name('savings-goals.index');
+// Route::get('/savings-goals/create', [SavingsGoalController::class, 'create'])->name('savings-goals.create');
+Route::post('/savings-goals', [SavingsGoalController::class, 'store'])->name('savings-goals.store');
+Route::get('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'show'])->name('savings-goals.show'); // {savings_goal} adalah parameter model binding
+Route::get('/savings-goals/{savings_goal}/edit', [SavingsGoalController::class, 'edit'])->name('savings-goals.edit');
+Route::put('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'update'])->name('savings-goals.update'); // Untuk update
+// Route::patch('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'update']); // Alternatif untuk update
+Route::delete('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'destroy'])->name('savings-goals.destroy');
 
 // Dashboard
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -12,10 +12,12 @@
             </div>
             <div class="row">
                 <!-- Form Tambah Transaksi -->
-                @include('components.addTransaksi')
+                <div class="col-lg-5 col">
+                    @include('components.addTransaksi')
+                </div>
 
                 <!-- Tabel Transaksi -->
-                <div class="col-lg-7">
+                <div class="col-lg-7 col">
                     @include('components.tabletransaction')
                 </div>
             </div>
@@ -78,5 +80,6 @@
         </div>
         <!-- @include('components.editTransaction') -->
     </div>
+    @include('components.navigationBar')
     <script src="{{ asset('js/transactions.js') }}"></script>
 @endsection

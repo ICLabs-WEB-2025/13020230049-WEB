@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    body{
+        margin : 0;
+    }
+</style>
     <div class="auth">
         <div class="container d-flex justify-content-center align-items-center vh-100">
             <div class="login-container">

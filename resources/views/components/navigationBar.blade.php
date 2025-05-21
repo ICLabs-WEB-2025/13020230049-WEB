@@ -1,5 +1,5 @@
 <nav class="bottom-nav">
-    <a href="#" class="nav-item {{-- request()->routeIs('savings.index') || request()->is('savings*') ? 'active' : '' --}}">
+    <a href="{{ url('/savings-goals') }}" class="nav-item {{-- request()->routeIs('savings.index') || request()->is('savings*') ? 'active' : '' --}}">
         <i class="bi bi-wallet-fill"></i>
         <span>Tabungan</span>
     </a>

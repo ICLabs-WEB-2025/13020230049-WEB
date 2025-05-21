@@ -129,6 +129,7 @@
             </div>
         </div>
     </div>
+    @include('components.navigationBar')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Mendefinisikan data chart di sini agar bisa diakses oleh file JS eksternal
