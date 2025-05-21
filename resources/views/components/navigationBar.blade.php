@@ -14,9 +14,9 @@
         <span>Dasbor</span>
     </a>
 
-    <a href="#" class="nav-item {{-- request()->routeIs('profile.show') || request()->is('profile*') || request()->is('account*') ? 'active' : '' --}}">
+    <a href="{{ route('profile.show') }}" class="nav-item {{ request()->routeIs('profile.show') || request()->is('profile*') || request()->is('account*') ? 'active' : '' }}">
         <i class="bi bi-person-fill"></i>
-        <span>Account</span>
+        <span>Profile</span>
     </a>
 
     <a href="{{ url('/') }}" class="nav-item {{ request()->routeIs('/savings-goals') ? 'active' : '' }}">

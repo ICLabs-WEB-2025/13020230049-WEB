@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SavingsGoalController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/get-token', function () {
     return csrf_token();
@@ -41,6 +42,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('savings-goals', SavingsGoalController::class);
     // TAMBAHKAN ROUTE INI UNTUK FITUR TAMBAH DANA:
     Route::post('/savings-goals/{savings_goal}/add-funds', [SavingsGoalController::class, 'addFunds'])->name('savings-goals.add-funds');
+
+
+    // show profile
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 });
 
 

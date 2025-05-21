@@ -26,6 +26,13 @@
             </a>
         </li>
 
+        <li>    
+            <a href="{{ route('profile.show') }}" class="d-flex align-items-center p-3 text-light">
+                <i class="bi bi-person-fill me-3"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
         <li>
             <a href="{{ url('/') }}" class="d-flex align-items-center p-3 text-light">
                 <i class="bi bi-box-arrow-right me-3"></i>
