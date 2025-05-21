@@ -1,4 +1,5 @@
 @extends('layouts.app') {{-- Sesuaikan dengan layout utama kamu --}}
+
 @section('content')
     @include('components.sidebard') {{-- Sesuaikan dengan cara kamu meng-include sidebar --}}
 
@@ -17,12 +18,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            @if(session('error'))
+            {{-- Menampilkan error validasi spesifik untuk modal hapus akun --}}
+            @if($errors->deleteAccount->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
+                    <strong>Oops! Ada kesalahan saat mencoba menghapus akun:</strong>
+                    <ul>
+                        @foreach ($errors->deleteAccount->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+
 
             <div class="row">
                 <div class="col-lg-4 col-md-5 mb-4">
@@ -34,7 +42,6 @@
                             <p><strong>Username:</strong> {{ $user->username }}</p>
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Bergabung Sejak:</strong> {{ $user->created_at->format('d F Y') }}</p>
-                            {{-- Tombol untuk edit profil dasar bisa ditambahkan di sini --}}
                             {{-- <a href="{{ route('profile.edit') }}" class="btn btn-outline-primary btn-sm mt-2">Edit Profil</a> --}}
                         </div>
                     </div>
@@ -72,45 +79,15 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                @if($recentPointActivities->count() >= 5) {{-- Tampilkan jika ada lebih banyak dari yang ditampilkan --}}
+                                @if($recentPointActivities->count() >= 5)
                                     {{-- <a href="#" class="btn btn-outline-secondary btn-sm mt-3 d-block">Lihat Semua Riwayat Poin</a> --}}
                                 @endif
                             @endif
                         </div>
                     </div>
 
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0"><i class="bi bi-shield-lock-fill me-2"></i>Keamanan Akun</h5>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{-- route('profile.updatePassword') --}}" method="POST">
-                                @csrf
-                                @method('PUT') {{-- atau PATCH --}}
-                                <div class="mb-3">
-                                    <label for="current_password" class="form-label">Password Saat Ini</label>
-                                    <input type="password" class="form-control @error('current_password', 'updatePassword') is-invalid @enderror" id="current_password" name="current_password" required>
-                                    @error('current_password', 'updatePassword')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="new_password" class="form-label">Password Baru</label>
-                                    <input type="password" class="form-control @error('new_password', 'updatePassword') is-invalid @enderror" id="new_password" name="new_password" required>
-                                    @error('new_password', 'updatePassword')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="new_password_confirmation" class="form-label">Konfirmasi Password Baru</label>
-                                    <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Ubah Password</button>
-                            </form>
-                        </div>
-                    </div>
+                    
 
-                    {{-- Opsional: Kartu Ringkasan Tujuan Tabungan --}}
                     @if(isset($activeSavingsGoals) && !$activeSavingsGoals->isEmpty())
                     <div class="card shadow-sm">
                         <div class="card-header">
@@ -120,25 +97,97 @@
                             <ul class="list-group list-group-flush">
                                 @foreach($activeSavingsGoals as $goal)
                                     <li class="list-group-item">
-                                        <strong>{{ $goal->goal_name }}</strong>
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">{{ $goal->goal_name }}</h6>
+                                            <small class="text-muted">
+                                                @if($goal->target_date)
+                                                    Target: {{ \Carbon\Carbon::parse($goal->target_date)->format('d M Y') }}
+                                                @endif
+                                            </small>
+                                        </div>
                                         @php
                                             $progressPercentage = ($goal->target_amount > 0) ? ($goal->current_amount / $goal->target_amount) * 100 : 0;
                                             $progressPercentage = min(round($progressPercentage), 100);
+                                            $progressBarClass = 'bg-success';
+                                            if ($progressPercentage < 30) { $progressBarClass = 'bg-danger'; }
+                                            elseif ($progressPercentage < 70) { $progressBarClass = 'bg-warning text-dark'; }
                                         @endphp
-                                        <div class="progress mt-1" style="height: 10px;">
-                                            <div class="progress-bar" role="progressbar" style="width: {{ $progressPercentage }}%;" aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress mt-1 mb-1" style="height: 12px;">
+                                            <div class="progress-bar {{ $progressBarClass }}" role="progressbar" style="width: {{ $progressPercentage }}%;" aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <small class="text-muted">Rp {{ number_format($goal->current_amount, 0, ',', '.') }} / Rp {{ number_format($goal->target_amount, 0, ',', '.') }} ({{ $progressPercentage }}%)</small>
+                                        <small class="text-muted d-block">
+                                            Rp {{ number_format($goal->current_amount, 0, ',', '.') }} / Rp {{ number_format($goal->target_amount, 0, ',', '.') }}
+                                            <span class="float-end">{{ $progressPercentage }}%</span>
+                                        </small>
                                     </li>
                                 @endforeach
                             </ul>
-                            <a href="{{ route('savings-goals.index') }}" class="btn btn-outline-secondary btn-sm mt-3 d-block">Lihat Semua Tujuan</a>
+                            <a href="{{ route('savings-goals.index') }}" class="btn btn-outline-secondary btn-sm mt-3 d-block">Lihat Semua Tujuan Tabungan</a>
                         </div>
                     </div>
-                    @endif 
+                    @endif
+                    <div class="card shadow-sm mb-4 border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <h5 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>Hapus Akun</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-danger"><strong>Peringatan:</strong> Tindakan ini akan menghapus semua data Anda secara permanen dan tidak dapat dibatalkan.</p>
+                            <p>Jika Anda yakin ingin melanjutkan, silakan konfirmasi dengan menekan tombol di bawah ini.</p>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                                Hapus Akun Saya
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteAccountModalLabel"><i class="bi bi-exclamation-triangle-fill"></i> Konfirmasi Hapus Akun</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('profile.destroyAccount') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-body">
+                        <p><strong>Anda yakin ingin menghapus akun Anda secara permanen?</strong></p>
+                        <p class="text-danger">Semua data Anda, termasuk transaksi, tujuan tabungan, dan poin akan dihapus dan tidak dapat dipulihkan.</p>
+                        <div class="mb-3">
+                            <label for="password_delete" class="form-label">Untuk melanjutkan, masukkan password Anda:</label>
+                            <input type="password" class="form-control @error('password_delete', 'deleteAccount') is-invalid @enderror" id="password_delete" name="password_delete" required>
+                            @error('password_delete', 'deleteAccount')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Ya, Hapus Akun Saya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     @include('components.navigationBar')
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Jika ada error pada modal hapus akun dan modalnya perlu dibuka kembali
+    @if($errors->deleteAccount->any() && session('open_modal_on_error') === 'deleteAccountModal')
+        const deleteModalElement = document.getElementById('deleteAccountModal');
+        if (deleteModalElement) {
+            const modal = new bootstrap.Modal(deleteModalElement);
+            modal.show();
+        }
+    @endif
+});
+</script>
+@endpush

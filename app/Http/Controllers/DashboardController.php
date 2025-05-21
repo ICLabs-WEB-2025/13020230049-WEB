@@ -39,7 +39,7 @@ class DashboardController extends Controller
         $monthlyChartIncomeData = [];
         $monthlyChartExpenseData = [];
 
-        for ($i = 5; $i >= 0; $i--) {
+        for ($i = 11; $i >= 0; $i--) {
             $month = Carbon::now()->subMonths($i);
             $monthlyChartLabels[] = $month->format('M Y'); // e.g., May 2025
 

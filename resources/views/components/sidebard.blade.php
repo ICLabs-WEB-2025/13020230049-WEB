@@ -44,11 +44,9 @@
     <footer class="mt-4">
         <p class="copy text-center m-0">&copy; 2025 Ichwal.</p>
         <div class="container d-flex justify-content-center">
-            <a href="https://github.com/ichwalM" target="_blank" class="btn fs-5">
-                <i class="bi bi-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/ichwal/" class="btn fs-5" target="_blank">
-                <i class="bi bi-linkedin"></i>
+            <a href="https://github.com/ichwalM" target="_blank" class="text-decoration-none text-light copy text-center m-0 fs-6 my-1">
+                Support by GitHub
+                <i class="bi bi-github text-light"></i>
             </a>
         </div>
     </footer>
