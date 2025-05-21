@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\SavingsGoal;
+use App\Models\Userpoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class SavingsGoalController extends Controller
 {
@@ -14,6 +16,8 @@ class SavingsGoalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    const POINTS_FOR_GOAL_COMPLETION = 50;
+
     public function index()
     {
         $savingsGoals = SavingsGoal::where('user_id', Auth::id())
@@ -63,6 +67,8 @@ class SavingsGoalController extends Controller
         $savingsGoal->target_date = $request->input('target_date');
         $savingsGoal->current_amount = 0;
         $savingsGoal->save();
+
+        $this->awardPointsIfGoalCompleted($savingsGoal);
 
         // Redirect ke route 'savings-goals.index' (kebab-case)
         return redirect()->route('savings-goals.index')
@@ -135,6 +141,8 @@ class SavingsGoalController extends Controller
         $savingsGoal->target_date = $request->input('target_date');
         $savingsGoal->save();
 
+        $this->awardPointsIfGoalCompleted($savingsGoal);
+
         // Redirect ke route 'savings-goals.index' (kebab-case)
         return redirect()->route('savings-goals.index')
                          ->with('success', 'Tujuan tabungan berhasil diperbarui!');
@@ -196,9 +204,37 @@ class SavingsGoalController extends Controller
         // }
         $savingsGoal->save();
 
+        $this->awardPointsIfGoalCompleted($savingsGoal);
+
         // Bagian untuk mencatat transaksi otomatis telah dihapus.
 
         return redirect()->route('savings-goals.index')
                          ->with('success', 'Dana berhasil ditambahkan ke tujuan "' . $savingsGoal->goal_name . '"!');
+    }
+
+    protected function awardPointsIfGoalCompleted(SavingsGoal $savingsGoal)
+    {
+        // Cek apakah tujuan sudah tercapai
+        if ($savingsGoal->current_amount >= $savingsGoal->target_amount) {
+            // Cek apakah poin untuk goal ini sudah pernah diberikan
+            $existingPoints = UserPoint::where('user_id', $savingsGoal->user_id)
+                                       ->where('savings_goal_id', $savingsGoal->id)
+                                       ->where('achievement_type', 'goal_completed')
+                                       ->exists();
+
+            if (!$existingPoints) {
+                UserPoint::create([
+                    'user_id' => $savingsGoal->user_id,
+                    'savings_goal_id' => $savingsGoal->id,
+                    'points_earned' => self::POINTS_FOR_GOAL_COMPLETION,
+                    'description' => 'Selamat! Menyelesaikan tujuan tabungan: ' . $savingsGoal->goal_name,
+                    'achievement_date' => Carbon::now(), // Tanggal poin diberikan
+                    'achievement_type' => 'goal_completed',
+                ]);
+
+                // Opsional: Kirim notifikasi atau pesan tambahan ke pengguna
+                // session()->flash('bonus_info', 'Selamat! Anda mendapatkan '.self::POINTS_FOR_GOAL_COMPLETION.' poin karena menyelesaikan tujuan!');
+            }
+        }
     }
 }
