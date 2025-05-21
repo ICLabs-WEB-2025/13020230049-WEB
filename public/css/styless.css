@@ -12,6 +12,10 @@
     background-repeat: no-repeat;
 }
 
+.fs-bold{
+    font-weight: bold;
+}
+
 /* login */
 .login-container {
     max-width: 400px;

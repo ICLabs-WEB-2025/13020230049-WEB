@@ -12,12 +12,12 @@
             </div>
             <div class="row">
                 <!-- Form Tambah Transaksi -->
-                <div class="col-lg-5 col">
+                <div class="col-lg-4 col">
                     @include('components.addTransaksi')
                 </div>
 
                 <!-- Tabel Transaksi -->
-                <div class="col-lg-7 col">
+                <div class="col-lg-8 col">
                     @include('components.tabletransaction')
                 </div>
             </div>

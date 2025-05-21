@@ -1,5 +1,5 @@
-<nav class="bottom-nav">
-    <a href="{{ url('/savings-goals') }}" class="nav-item {{-- request()->routeIs('savings.index') || request()->is('savings*') ? 'active' : '' --}}">
+<nav class="bottom-nav bg-dark">
+    <a href="{{ route('savings-goals.index') }}" class="nav-item {{ request()->routeIs('savings-goals.index') || request()->is('savings-goals*') ? 'active' : '' }}">
         <i class="bi bi-wallet-fill"></i>
         <span>Tabungan</span>
     </a>
@@ -19,7 +19,7 @@
         <span>Account</span>
     </a>
 
-    <a href="{{ url('/') }}" class="nav-item">
+    <a href="{{ url('/') }}" class="nav-item {{ request()->routeIs('/savings-goals') ? 'active' : '' }}">
         <i class="bi bi-box-arrow-right"></i>
         <span>Keluar</span>
     </a>

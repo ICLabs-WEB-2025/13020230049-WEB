@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="{{ asset('css/navigationBar.css') }}">
 </head>
 <body>
-    <div class="">
+    <div class="app">
         @yield('content')
     </div>
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- @yield('transaction-scripts') -->
+    @stack('scripts')
 </body>
 </html>

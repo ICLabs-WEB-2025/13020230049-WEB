@@ -29,7 +29,7 @@ Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name
 
 
 // saving goals
-Route::get('/savings-goals', [SavingsGoalController::class, 'index'])->name('savings-goals.index');
+Route::middleware('auth')->get('/savings-goals', [SavingsGoalController::class, 'index'])->name('savings-goals.index');
 // Route::get('/savings-goals/create', [SavingsGoalController::class, 'create'])->name('savings-goals.create');
 Route::post('/savings-goals', [SavingsGoalController::class, 'store'])->name('savings-goals.store');
 Route::get('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'show'])->name('savings-goals.show'); // {savings_goal} adalah parameter model binding
@@ -37,6 +37,12 @@ Route::get('/savings-goals/{savings_goal}/edit', [SavingsGoalController::class, 
 Route::put('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'update'])->name('savings-goals.update'); // Untuk update
 // Route::patch('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'update']); // Alternatif untuk update
 Route::delete('/savings-goals/{savings_goal}', [SavingsGoalController::class, 'destroy'])->name('savings-goals.destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('savings-goals', SavingsGoalController::class);
+    // TAMBAHKAN ROUTE INI UNTUK FITUR TAMBAH DANA:
+    Route::post('/savings-goals/{savings_goal}/add-funds', [SavingsGoalController::class, 'addFunds'])->name('savings-goals.add-funds');
+});
+
 
 // Dashboard
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -155,6 +155,50 @@ class SavingsGoalController extends Controller
 
         // Redirect ke route 'savings-goals.index' (kebab-case)
         return redirect()->route('savings-goals.index')
-                         ->with('success', 'Tujuan tabungan berhasil dihapus!');
+                        ->with('success', 'Tujuan tabungan berhasil dihapus!');
+    }
+
+    
+    public function addFunds(Request $request, SavingsGoal $savingsGoal)
+    {
+        // Otorisasi: Pastikan pengguna hanya bisa menambah dana ke miliknya
+        if ($savingsGoal->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Validasi input dari form modal tambah dana
+        // Input 'date' dari form 'addFundsModal' juga divalidasi
+        $validator = Validator::make($request->all(), [
+            'amount_to_add' => 'required|numeric|min:0.01',
+            'date' => 'required|date', // Validasi untuk tanggal penambahan dana
+        ]);
+
+        if ($validator->fails()) {
+            // Menggunakan error bag yang lebih spesifik untuk form ini
+            // agar tidak bentrok jika ada error lain di halaman yang sama.
+            // Kita juga perlu cara untuk memberitahu JavaScript modal mana yang harus dibuka kembali
+            // dan untuk goal ID mana.
+            return redirect()->route('savings-goals.index')
+                        ->withErrors($validator, 'addFundsErrorBag_goal_'.$savingsGoal->id) // Error bag unik per goal
+                        ->withInput()
+                        // Flag untuk membuka modal tambah dana yang spesifik jika ada error
+                        ->with('open_modal_on_error', 'addFundsModal') // ID Modal umum
+                        ->with('error_modal_goal_id', $savingsGoal->id); // ID Goal spesifik untuk JS
+        }
+
+        $amountToAdd = $request->input('amount_to_add');
+
+        // Update current_amount di savings goal
+        $savingsGoal->current_amount += $amountToAdd;
+        // Pertimbangkan untuk tidak membiarkan current_amount melebihi target_amount
+        // if ($savingsGoal->current_amount > $savingsGoal->target_amount) {
+        //     $savingsGoal->current_amount = $savingsGoal->target_amount;
+        // }
+        $savingsGoal->save();
+
+        // Bagian untuk mencatat transaksi otomatis telah dihapus.
+
+        return redirect()->route('savings-goals.index')
+                         ->with('success', 'Dana berhasil ditambahkan ke tujuan "' . $savingsGoal->goal_name . '"!');
     }
 }
