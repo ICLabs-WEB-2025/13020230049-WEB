@@ -17,12 +17,12 @@
                 <input type="hidden" id="transactionType" name="transaction_type" value="income">
                 
                 <div class="mb-3">
-                    <label for="amount" class="form-label">Jumlah (Rp)</label>
+                    <label for="amount" class="form-label text-dark">Jumlah (Rp)</label>
                     <input type="number" class="form-control" id="amount" name="amount" required min="1" placeholder="9000">
                 </div>
                 
                 <div class="mb-3">
-                    <label for="category" class="form-label">Kategori</label>
+                    <label for="category" class="form-label text-dark">Kategori</label>
                     <select class="form-select" id="category" name="category_id" required>
                         <option value="" disabled selected>Pilih Kategori</option>
                         <optgroup label="Pemasukan" id="incomeCategories">
@@ -46,12 +46,12 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="date" class="form-label">Tanggal</label>
+                    <label for="date" class="form-label text-dark">Tanggal</label>
                     <input type="date" class="form-control" id="date" name="date" required>
                 </div>
                 
                 <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi</label>
+                    <label for="description" class="form-label text-dark">Deskripsi</label>
                     <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                 </div>
                 

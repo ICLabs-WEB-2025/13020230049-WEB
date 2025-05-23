@@ -9,21 +9,16 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        // Mengambil semua transaksi yang dimiliki oleh pengguna yang sedang login
         $transactions = Transaction::where('user_id', auth()->id())
                                     ->with('category') // Mengambil relasi kategori
                                     ->latest()
                                     ->get();
         $categories = ExpenseCategory::all();
-        // Mengembalikan data transaksi ke view
-        // return view('transaction.index', compact('transactions'));
         return view('transaction.index', compact('transactions', 'categories'));
     }
 
     public function store(Request $request)
     {
-        // Validasi input
-        // dd($request->all());
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'category_id' => 'required|exists:expense_categories,id',
@@ -32,8 +27,6 @@ class TransactionController extends Controller
             'description' => 'nullable|string',
         ]);
         // dd('Validasi lolos', $request->all());
-
-        // Menyimpan transaksi baru
         $transaction = new Transaction([
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
@@ -55,7 +48,7 @@ class TransactionController extends Controller
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'category_id' => 'required|exists:expense_categories,id',
-            'transaction_type' => 'required|in:income,expense',  // pastikan ini ada
+            'transaction_type' => 'required|in:income,expense',  
             'date' => 'required|date',
             'description' => 'nullable|string',
         ]);
@@ -70,11 +63,6 @@ class TransactionController extends Controller
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diperbarui!');
     }
-
-
-
-
-
 
     public function destroy($id)
     {

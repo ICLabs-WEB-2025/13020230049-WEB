@@ -101,5 +101,4 @@
         };
     </script>
     <script src="{{ asset('js/main/dashboard.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

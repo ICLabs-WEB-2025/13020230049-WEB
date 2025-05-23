@@ -7,17 +7,17 @@
         <div class="container-fluid">
             
             <div class="row mb-3">
-                <div class="col-sm-10">
-                    <div class="">
-                        <h1 class="mb-1 fs-bold ">Tujuan Tabungan Saya</h1>
-                        <p class="text-muted">Lacak dan kelola semua target keuanganmu.</p>
-                    </div>
+                <div class="col-10">
+                    <h1 class="mb-1 fs-bold ">Tujuan Tabungan Saya</h1>
+                    <p class="">Lacak dan kelola semua target keuanganmu.</p>
                 </div>
-                <div class="col-sm-2 row">
-                    <div class="col-12 text-center">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSavingsGoalModal">
-                            <i class="bi bi-plus-circle-fill"></i> Tambah Tabungan Baru
-                        </button>
+                <div class="col-2 row">
+                    <div class="form-check form-switch ms-auto d-flex align-items-center">
+                        <input class="form-check-input dark" type="checkbox" role="switch" id="darkModeToggle">
+                        <label class="form-check-label dark" for="darkModeToggle">
+                            <i id="moon-icon" class="bi bi-moon-stars-fill" style="display: none;"></i>
+                            <i id="sun-icon" class="bi bi-sun-fill"></i>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -150,6 +150,13 @@
             
 
         </div>
+        <div class="fixed-bottom z-1 text-center p-3 mb-5">
+            <div class="col-12 text-center mb-3">
+                <button type="button" class="btn btn-primary" style="max-width: 250px;" data-bs-toggle="modal" data-bs-target="#addSavingsGoalModal">
+                    <i class="bi bi-plus-circle-fill"></i> Tambah Tabungan Baru
+                </button>
+            </div>
+        </div>
     </div>
 
     <div class="modal fade" id="addSavingsGoalModal" tabindex="-1" aria-labelledby="addSavingsGoalModalLabel" aria-hidden="true">
@@ -165,6 +172,7 @@
     </div>
 
     @include('components.navigationBar')
+    
 @endsection
 
 @push('scripts')

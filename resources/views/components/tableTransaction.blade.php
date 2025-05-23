@@ -20,7 +20,9 @@
                             <th scope="col">Deskripsi</th>
                             <th scope="col">Tipe</th>
                             <th scope="col">Jumlah</th>
+                            @if(request()->routeIs('transactions.index'))
                             <th scope="col">Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody id="transactionsTable">
@@ -35,6 +37,7 @@
                                 <td>Rp {{ number_format($transaction->amount, 2) }}</td>
                                 <td>
                                     <div class="container-fluid d-flex align-items-center">
+                                        @if(request()->routeIs('transactions.index'))
                                         <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" class="d-flex gap-1">
                                             @csrf
                                             <button type="button" class="btn btn-sm btn-warning btn-edit"
@@ -52,6 +55,7 @@
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                         </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
