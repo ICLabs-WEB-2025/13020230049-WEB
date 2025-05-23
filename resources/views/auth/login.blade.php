@@ -34,7 +34,16 @@
                 <div class="register-link">
                     <p>Belum punya akun? <a href="{{ url('register') }}">Daftar sekarang</a></p>
                 </div>
-                <p class="copy text-center">&copy; 2025 Ichwal.</p>
+                <!-- <p class="copy text-center">&copy; 2025 Ichwal.</p> -->
+                <footer class="mt-4">
+                    <p class="copy text-center m-0">&copy; 2025 Ichwal.</p>
+                    <div class="container d-flex justify-content-center">
+                        <a href="https://github.com/ichwalM" target="_blank" class="text-decoration-none text-dark copy text-center m-0 fs-6 my-1">
+                            Support by GitHub
+                            <i class="bi bi-github text-dark"></i>
+                        </a>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>

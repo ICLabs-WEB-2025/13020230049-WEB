@@ -4,18 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash; // Untuk verifikasi password
-use App\Models\User; // Model User
+use Illuminate\Support\Facades\Hash; 
+use App\Models\User; 
 use App\Models\UserPoint;
 use App\Models\SavingsGoal;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the authenticated user's profile.
-     *
-     * @return \Illuminate\View\View
-     */
     public function show()
     {
         $user = Auth::user();
@@ -42,17 +37,10 @@ class ProfileController extends Controller
         ));
     }
 
-    /**
-     * Handle account deletion.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroyAccount(Request $request)
     {
         $user = Auth::user();
 
-        // Validasi password saat ini untuk konfirmasi penghapusan
         $request->validateWithBag('deleteAccount', [
             'password_delete' => ['required', 'string'],
         ]);
@@ -60,22 +48,16 @@ class ProfileController extends Controller
         if (!Hash::check($request->password_delete, $user->password)) {
             return back()->withErrors([
                 'password_delete' => 'Password yang Anda masukkan salah.',
-            ], 'deleteAccount')->with('open_modal_on_error', 'deleteAccountModal'); // Agar modal tetap terbuka jika error
+            ], 'deleteAccount')->with('open_modal_on_error', 'deleteAccountModal');
         }
 
-        // Lakukan logout sebelum menghapus user untuk menghindari masalah sesi
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // Hapus pengguna. Data terkait (transactions, savings_goals, user_points)
-        // akan terhapus otomatis jika onDelete('cascade') sudah di-set di migration.
         $user->delete();
 
         return redirect('/')->with('success', 'Akun Anda telah berhasil dihapus.');
     }
 
-    // Method untuk edit profil dasar (username/email) bisa ditambahkan di sini
-    // public function edit() { ... }
-    // public function update(Request $request) { ... }
 }

@@ -1,14 +1,6 @@
     <div class="card">
         <div class="card-header bg-white d-flex justify-content-between align-items-center">
             <h5 class="card-title mb-0">Riwayat Transaksi</h5>
-            <div class="d-flex">
-                <input type="month" class="form-control me-2" id="monthFilter" style="max-width: 200px;">
-                <select class="form-select me-2" id="typeFilter" style="max-width: 150px;">
-                    <option value="all">Semua Tipe</option>
-                    <option value="income">Pemasukan</option>
-                    <option value="expense">Pengeluaran</option>
-                </select>
-            </div>
         </div>
         <div class="transaction-table">
             <div class="table-responsive">

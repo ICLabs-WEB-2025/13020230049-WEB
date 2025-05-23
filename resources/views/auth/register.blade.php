@@ -64,6 +64,15 @@
                 <div class="login-link mt-3 text-center">
                     <p>Sudah punya akun? <a href="{{ url('') }}">Login disini</a></p>
                 </div>
+                <footer class="mt-4">
+                    <p class="copy text-center m-0">&copy; 2025 Ichwal.</p>
+                    <div class="container d-flex justify-content-center">
+                        <a href="https://github.com/ichwalM" target="_blank" class="text-decoration-none text-dark copy text-center m-0 fs-6 my-1">
+                            Support by GitHub
+                            <i class="bi bi-github text-dark"></i>
+                        </a>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>

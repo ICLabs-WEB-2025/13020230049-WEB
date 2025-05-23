@@ -10,7 +10,7 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::where('user_id', auth()->id())
-                                    ->with('category') // Mengambil relasi kategori
+                                    ->with('category')
                                     ->latest()
                                     ->get();
         $categories = ExpenseCategory::all();

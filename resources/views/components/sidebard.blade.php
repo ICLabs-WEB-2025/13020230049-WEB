@@ -2,7 +2,7 @@
 <div class="sidebar d-flex flex-column justify-content-between bg-dark text-white" id="sidebar">
     <ul class="sidebar-menu list-unstyled">
         <div class="sidebar-brand text-center py-4">
-            <h2>Finance Tracker</h2>
+            <h2 class="text-light">Finance Tracker</h2>
         </div>
 
         <li>
