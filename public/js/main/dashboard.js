@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let displayPieColors = pieColors;
 
         if (pieData.length === 0) {
-            displayPieColors = ['#E0E0E0']; // Warna abu-abu untuk data kosong
+            displayPieColors = ['#E0E0E0'];
         } else {
             displayPieColors = pieColors.slice(0, pieData.length);
         }

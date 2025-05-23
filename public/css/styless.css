@@ -7,13 +7,13 @@
 }
 
 
-.auth{
+.auth {
     background-image: url("../img/background-auth.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.fs-bold{
+.fs-bold {
     font-weight: bold;
 }
 
@@ -25,28 +25,34 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 30px;
 }
+
 .logo {
     text-align: center;
     margin-bottom: 30px;
 }
+
 .logo h1 {
     color: #3a86ff;
     font-weight: 700;
 }
+
 .btn-primary {
     background-color: #3a86ff;
     border-color: #3a86ff;
     width: 100%;
     padding: 10px;
 }
+
 .btn-primary:hover {
     background-color: #2a75ee;
     border-color: #2a75ee;
 }
+
 .register-link {
     text-align: center;
     margin-top: 20px;
 }
+
 .copy {
     opacity: 0.6;
 }
@@ -94,7 +100,8 @@
     transition: 0.3s;
 }
 
-.sidebar-menu a:hover, .sidebar-menu a.active {
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
     background-color: rgba(58, 134, 255, 0.1);
 }
 
@@ -216,15 +223,15 @@
     .sidebar {
         left: -250px;
     }
-    
+
     .sidebar.active {
         left: 0;
     }
-    
+
     .main-content {
         margin-left: 0;
     }
-    
+
     .main-content.active {
         margin-left: var(--sidebar-width);
     }

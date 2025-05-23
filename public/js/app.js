@@ -1,4 +1,4 @@
-// Pastikan elemen dengan ID 'darkModeToggle' ada
+//dark mode
 const darkModeToggle = document.getElementById('darkModeToggle');
 darkModeToggle.addEventListener('change', function () {
     const isDark = this.checked;
