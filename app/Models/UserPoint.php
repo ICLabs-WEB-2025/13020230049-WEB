@@ -12,14 +12,13 @@ class UserPoint extends Model
 
     protected $fillable = [
         'user_id',
-        'savings_goal_id', // Jika kamu sudah menambahkan kolom ini
+        'savings_goal_id', 
         'points_earned',
         'description',
         'achievement_date',
         'achievement_type',
     ];
 
-    // Definisikan relasi jika perlu, misalnya ke User atau SavingsGoal
     public function user()
     {
         return $this->belongsTo(User::class);

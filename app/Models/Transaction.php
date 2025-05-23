@@ -10,7 +10,7 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'category_id', 'amount', 'transaction_type', 'description', 'date' // Pastikan `date` ada di sini
+        'user_id', 'category_id', 'amount', 'transaction_type', 'description', 'date' 
     ];
 
     protected $dates = ['created_at', 'updated_at', 'date'];

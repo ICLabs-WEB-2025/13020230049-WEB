@@ -10,8 +10,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['username', 'name', 'email', 'password']; // Tambah name jika ada
-    protected $hidden = ['password', 'remember_token']; // Sembunyikan password dan remember_token
+    protected $fillable = ['username', 'name', 'email', 'password']; 
+    protected $hidden = ['password', 'remember_token']; 
 
     public function transactions()
     {
