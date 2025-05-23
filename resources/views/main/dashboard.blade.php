@@ -90,14 +90,13 @@
     @include('components.navigationBar')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Mendefinisikan data chart di sini agar bisa diakses oleh file JS eksternal
+        // Mendefinisikan data chart for file JS eksternal
         window.chartData = {
             monthlyLabels: @json($monthlyChartLabels ?? []),
             incomeData: @json($monthlyChartIncomeData ?? []),
             expenseData: @json($monthlyChartExpenseData ?? []),
             pieLabels: @json($pieChartLabels ?? []),
             pieData: @json($pieChartData ?? [])
-            // pieColors bisa ditambahkan di sini jika mau
         };
     </script>
     <script src="{{ asset('js/main/dashboard.js') }}"></script>

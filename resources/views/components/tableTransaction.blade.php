@@ -37,7 +37,7 @@
                                                     data-bs-target="#editTransaksiModal"
                                                     data-id="{{ $transaction->id }}"
                                                     data-amount="{{ $transaction->amount }}"
-                                                    data-category_id="{{ $transaction->category_id }}"
+                                                    data-category_id="{{ $transaction->category_id }}"  
                                                     data-transaction_type="{{ $transaction->transaction_type }}"
                                                     data-date="{{ $transaction->date }}"
                                                     data-description="{{ $transaction->description }}">
@@ -45,7 +45,7 @@
                                             </button>
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                            <button id="btn-delete" type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                         </form>
                                         @endif
                                     </div>

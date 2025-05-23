@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryName = document.getElementsByClassName('categoryName');
     console.log(categoryName);
 
+document.getElementById('btn-delete').addEventListener('click',function(){
+        confirm('Yakin Ingin Menghapus Transakasi!');
+        console.log("data di hapus");
+    })
 });
 
 

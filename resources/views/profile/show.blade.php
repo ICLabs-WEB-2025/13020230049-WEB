@@ -187,7 +187,6 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Jika ada error pada modal hapus akun dan modalnya perlu dibuka kembali
     @if($errors->deleteAccount->any() && session('open_modal_on_error') === 'deleteAccountModal')
         const deleteModalElement = document.getElementById('deleteAccountModal');
         if (deleteModalElement) {
