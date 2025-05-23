@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
     Route::resource('savings-goals', SavingsGoalController::class);
     
-    // TAMBAHKAN ROUTE INI UNTUK FITUR TAMBAH DANA:
+    //saving goals
     Route::get('/savings-goals', [SavingsGoalController::class, 'index'])->name('savings-goals.index');
     Route::post('/savings-goals/{savings_goal}/add-funds', [SavingsGoalController::class, 'addFunds'])->name('savings-goals.add-funds');
     Route::post('/savings-goals', [SavingsGoalController::class, 'store'])->name('savings-goals.store');
