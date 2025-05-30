@@ -18,7 +18,6 @@ class UserPoint extends Model
         'achievement_date',
         'achievement_type',
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class);

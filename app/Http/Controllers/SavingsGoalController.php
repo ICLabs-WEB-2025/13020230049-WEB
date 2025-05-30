@@ -114,7 +114,6 @@ class SavingsGoalController extends Controller
         return redirect()->route('savings-goals.index')
                         ->with('success', 'Tujuan tabungan berhasil dihapus!');
     }
-
     
     public function addFunds(Request $request, SavingsGoal $savingsGoal)
     {
@@ -138,6 +137,7 @@ class SavingsGoalController extends Controller
         $amountToAdd = $request->input('amount_to_add');
 
         // Update current_amount di savings goal
+        $savingsGoal->current_amount += $amountToAdd;
         $savingsGoal->save();
 
         $this->awardPointsIfGoalCompleted($savingsGoal);
@@ -152,7 +152,6 @@ class SavingsGoalController extends Controller
     {
         // Cek apakah tujuan sudah tercapai
         if ($savingsGoal->current_amount >= $savingsGoal->target_amount) {
-            // Cek apakah poin untuk goal ini sudah pernah diberikan
             $existingPoints = UserPoint::where('user_id', $savingsGoal->user_id)
                                     ->where('savings_goal_id', $savingsGoal->id)
                                     ->where('achievement_type', 'goal_completed')
@@ -164,7 +163,7 @@ class SavingsGoalController extends Controller
                     'savings_goal_id' => $savingsGoal->id,
                     'points_earned' => self::POINTS_FOR_GOAL_COMPLETION,
                     'description' => 'Selamat! Menyelesaikan tujuan tabungan: ' . $savingsGoal->goal_name,
-                    'achievement_date' => Carbon::now(), // Tanggal poin diberikan
+                    'achievement_date' => Carbon::now(), 
                     'achievement_type' => 'goal_completed',
                 ]);
             }

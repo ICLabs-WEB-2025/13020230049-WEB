@@ -60,7 +60,6 @@ class UserController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
         return redirect('/')->with('status', 'Anda telah berhasil logout.');
     }
 

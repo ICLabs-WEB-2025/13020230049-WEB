@@ -12,7 +12,6 @@ class ExpenseCategory extends Model
     protected $fillable = [
         'category_name'
     ];
-
     // Relasi ke Transactions
     public function transactions()
     {

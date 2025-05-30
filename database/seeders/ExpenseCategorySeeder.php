@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB; // Untuk menggunakan DB facade
 use App\Models\ExpenseCategory; // Jika kamu ingin menggunakan model Eloquent
 
 // Run This Commant for data Dumy
-// php artisan make:seeder ExpenseCategorySeeder
+//php artisan db:seed --class=ExpenseCategorySeeder
 class ExpenseCategorySeeder extends Seeder
 {
     /**

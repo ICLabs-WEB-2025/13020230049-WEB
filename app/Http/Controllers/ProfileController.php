@@ -36,7 +36,6 @@ class ProfileController extends Controller
             'activeSavingsGoals'
         ));
     }
-
     public function destroyAccount(Request $request)
     {
         $user = Auth::user();

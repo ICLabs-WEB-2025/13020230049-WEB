@@ -12,7 +12,6 @@ class SavingsGoal extends Model
     protected $fillable = [
         'user_id', 'goal_name', 'target_amount', 'current_amount', 'target_date'
     ];
-
     // Relasi ke User
     public function user()
     {

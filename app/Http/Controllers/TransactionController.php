@@ -26,7 +26,6 @@ class TransactionController extends Controller
             'date' => 'required|date',
             'description' => 'nullable|string',
         ]);
-        // dd('Validasi lolos', $request->all());
         $transaction = new Transaction([
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,

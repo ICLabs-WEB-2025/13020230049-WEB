@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Transaction;
 use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
@@ -84,3 +83,5 @@ class DashboardController extends Controller
         ));
     }
 }
+
+

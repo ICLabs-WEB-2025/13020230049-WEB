@@ -27,7 +27,7 @@
                 </div>
                 <!-- Tabel Transaksi -->
                 <div class="col-lg-8 col">
-                    @include('components.tabletransaction')
+                    @include('components.tableTransaction')
                 </div>
             </div>
         </div>
