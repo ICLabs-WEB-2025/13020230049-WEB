@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SavingsGoal;
-use App\Models\Userpoint;
+use App\Models\UserPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
