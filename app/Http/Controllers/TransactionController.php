@@ -10,11 +10,28 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::where('user_id', auth()->id())
-                                    ->with('category')
-                                    ->latest()
-                                    ->get();
-        $categories = ExpenseCategory::all();
-        return view('transaction.index', compact('transactions', 'categories'));
+                                ->with('category')
+                                ->latest()
+                                ->get();
+        
+        $incomeCategories = ExpenseCategory::where('type', 'income')->get();
+        $expenseCategories = ExpenseCategory::where('type', 'expense')->get();
+        
+        $totalIncome = Transaction::where('user_id', auth()->id())
+            ->where('transaction_type', 'income')
+            ->sum('amount');
+
+        $totalExpense = Transaction::where('user_id', auth()->id())
+            ->where('transaction_type', 'expense')
+            ->sum('amount');
+
+        return view('transaction.index', compact(
+            'transactions',
+            'incomeCategories', 
+            'expenseCategories', 
+            'totalIncome',
+            'totalExpense'
+        ));
     }
 
     public function store(Request $request)
@@ -75,4 +92,5 @@ class TransactionController extends Controller
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dihapus');
     }
+
 }

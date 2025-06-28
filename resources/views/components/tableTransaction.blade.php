@@ -53,6 +53,27 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    @if(request()->routeIs('transactions.index'))
+                    <tfoot>
+                        <tr>
+                            <td class="income-text">Total Pemasukan</td>
+                            <td>:</td>
+                            <td class="income-text">Rp {{ number_format($totalIncome ?? 0, 2, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="expense-text">Total Pengeluaran</td>
+                            <td>:</td>
+                            <td class="expense-text">Rp {{ number_format($totalExpense ?? 0, 2, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary">Total Saldo</td>
+                            <td>:</td>
+                            <td class="{{number_format(($totalIncome ?? 0) - ($totalExpense ?? 0), 2, ',', '.') > 0 ? 'income-text' : 'expense-text' }}">
+                                Rp {{ number_format(($totalIncome ?? 0) - ($totalExpense ?? 0), 2, ',', '.') }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                    @endif
                 </table>
             </div>
         </div>

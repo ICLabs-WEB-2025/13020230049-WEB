@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
                                     <p class="mb-1 small">
-                                        Terkumpul: <span class="fw-semibold">Rp {{ number_format($goal->current_amount, 0, ',', '.') }}</span>
+                                        Terkumpul: <span class="fw-semibold">Rp {{ number_format($goal->current_amount) }}</span>
                                     </p>
                                     @if($goal->current_amount < $goal->target_amount)
                                         <p class="text-danger small">

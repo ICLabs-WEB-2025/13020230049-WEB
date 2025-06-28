@@ -33,6 +33,7 @@ function setTransactionType(type) {
     }
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     let editTransaksiModal = document.getElementById('editTransaksiModal');
     let editTransactionForm = document.getElementById('editTransactionForm');

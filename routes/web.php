@@ -7,11 +7,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SavingsGoalController;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/get-token', function () {
-    return csrf_token();
-});
-
-Route::get('/', [UserController::class, 'loginForm'])->name('login');
+Route::get('/login-user', [UserController::class, 'loginForm'])->name('login');
+// sebelum akses dashboard, harus login
 Route::get('/register', [UserController::class, 'registerForm'])->name('register');
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
@@ -19,7 +16,7 @@ Route::post('/login', [UserController::class, 'login']);
 // autentikasi
 Route::middleware(['auth'])->group(function () {
     // dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     //transaksis
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');

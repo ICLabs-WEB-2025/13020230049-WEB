@@ -6,7 +6,7 @@
         </div>
 
         <li>
-            <a href="{{ url('/dashboard') }}" class="d-flex align-items-center p-3 text-light">
+            <a href="{{ url('/') }}" class="d-flex align-items-center p-3 text-light">
                 <i class="bi bi-house-door-fill me-3"></i>
                 <span>Dashboard</span>
             </a>

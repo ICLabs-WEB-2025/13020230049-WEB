@@ -10,7 +10,7 @@ class ExpenseCategory extends Model
     use HasFactory;
 
     protected $fillable = [
-        'category_name'
+        'category_name','type',
     ];
     // Relasi ke Transactions
     public function transactions()
